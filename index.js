@@ -11,5 +11,5 @@ app.use('/', router);
 
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {
-    console.log('O processo está rodando na porta:'+ PORT)
+    console.log('O processo está rodando')
 });
