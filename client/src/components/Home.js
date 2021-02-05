@@ -1,4 +1,13 @@
+import {Helmet} from "react-helmet";
 const Home = () =>{
-    return <h1>Home</h1>
+    return (
+        <>
+            <Helmet>
+                <title>Titulo temporario</title>
+                <meta name="description" content="Titulo temporario"/>
+            </Helmet>
+
+        </>
+    )
 }
 export default Home;

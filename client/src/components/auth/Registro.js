@@ -1,8 +1,13 @@
 import BgImage from './BgImage';
 import React from 'react';
+import {Helmet} from 'react-helmet';
 const Registro = () =>{
     return (
         <>
+            <Helmet>
+                <title>Cadastro do usuario</title>
+                <meta name="descrição" content="Cadastro do usuario" />
+            </Helmet>
             <div className='row mt-80'>
                 <div className="col-8">
                     <BgImage />

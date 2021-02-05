@@ -1,8 +1,14 @@
 import BgImage from './BgImage';
 import React from 'react';
+import {Helmet} from 'react-helmet';
 const Login = () =>{
     return (
         <>
+            <Helmet>
+                <title>Login do usuario</title>
+                <meta name="descrição" content="Login do usuario" />
+            </Helmet>
+
             <div className='row mt-80'>
                 <div className="col-8">
                     <BgImage />
