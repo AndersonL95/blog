@@ -3,7 +3,7 @@ import React from 'react';
 import {Helmet} from 'react-helmet';
 const Registro = () =>{
     return (
-        <>
+        <React.Fragment>
             <Helmet>
                 <title>Cadastro do usuario</title>
                 <meta name="descrição" content="Cadastro do usuario" />
@@ -12,7 +12,7 @@ const Registro = () =>{
                 <div className="col-8">
                     <BgImage />
                 </div>
-                <div className="col-4"></div>
+                <div className="col-4">
                     <div className="account">
                         <div className="account_section">
                             <form>
@@ -32,8 +32,9 @@ const Registro = () =>{
                             </form>
                         </div>
                     </div>
+                </div>
             </div>
-        </>
+        </React.Fragment>
     );
 };
 export default Registro;

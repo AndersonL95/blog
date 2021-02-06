@@ -13,7 +13,7 @@ const Login = () =>{
                 <div className="col-8">
                     <BgImage />
                 </div>
-                <div className="col-4"></div>
+                <div className="col-4">
                     <div className="account">
                         <div className="account_section">
                             <form>
@@ -31,6 +31,7 @@ const Login = () =>{
                             </form>
                         </div>
                     </div>
+                </div>
             </div>
         </>
     );

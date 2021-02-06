@@ -4,9 +4,12 @@ import './main.scss';
 import Navbar from "./components/Navbar";
 import Registro from "./components/auth/Registro";
 import Login from "./components/auth/Login";
+import Store from './store/index';
+import {Provider} from "react-redux";
 
 function App() {
   return (
+    <Provider store={Store}>
     <Router>
       <Navbar />
       <Switch>
@@ -16,6 +19,7 @@ function App() {
       </Switch>
 
     </Router>
+    </Provider>
    
   );
 
