@@ -6,6 +6,10 @@ import Registro from "./components/auth/Registro";
 import Login from "./components/auth/Login";
 import Store from './store/index';
 import {Provider} from "react-redux";
+import Dashboard from './components/Dashboard';
+import PrivateRoute from './privado/PrivateRoute';
+import RouteLinks from './privado/RouteLinks';
+
 
 function App() {
   return (
@@ -13,9 +17,10 @@ function App() {
     <Router>
       <Navbar />
       <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/registro" exact component={Registro} />
-        <Route path="/login" exact component={Login} />
+        <RouteLinks path="/" exact component={Home} />
+        <RouteLinks path="/registro" exact component={Registro} />
+        <RouteLinks path="/login" exact component={Login} />
+        <PrivateRoute path="/dashboard" exact component={Dashboard} />
       </Switch>
 
     </Router>
