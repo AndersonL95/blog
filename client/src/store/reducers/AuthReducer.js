@@ -1,10 +1,10 @@
 
 import jwt_decode from 'jwt-decode'
-import {SET_LOADER, CLOSE_LOADER, REGISTER_ERRORS, SET_TOKEN} from '../tipos/userTypes';
+import {SET_LOADER, CLOSE_LOADER, REGISTER_ERRORS, SET_TOKEN, LOGOUT, LOGIN_ERRORS} from '../tipos/userTypes';
 const initState = {
     loading: false,
-    registerErros:[],
-    loginErros: '',
+    registerErrors:[],
+    loginErrors: '',
     token: '',
 }
 const verifyToken = token => {
@@ -39,7 +39,13 @@ const AuthReducer = (state = initState, action) => {
     }else if(action.type === SET_TOKEN){
         const decoded = verifyToken(action.payload)
         const {user} = decoded;
-        return{...state, token: action.payload, user}
+        return{...state, token: action.payload, user: user, loginErrors: [], registerErrors:[],}
+    }else if(action.type === LOGOUT){
+        return{ ...state, token: '', user:''}
+
+    }else if(action.type === LOGIN_ERRORS){
+        return{...state, loginErrors: action.payload,}
+
     }else {
         return state
     }
