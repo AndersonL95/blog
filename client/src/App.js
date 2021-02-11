@@ -10,6 +10,7 @@ import Dashboard from './components/Dashboard';
 import PrivateRoute from './privado/PrivateRoute';
 import RouteLinks from './privado/RouteLinks';
 import NotFound from './components/NotFound';
+import Create from './components/Create';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <RouteLinks path="/registro" exact component={Registro} />
         <RouteLinks path="/login" exact component={Login} />
         <PrivateRoute path="/dashboard" exact component={Dashboard} />
+        <PrivateRoute path='/create' exact component={Create} />
         <Route component={NotFound}/>
       </Switch>
 
