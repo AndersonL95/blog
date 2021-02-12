@@ -2,10 +2,14 @@ import {Helmet} from 'react-helmet';
 import {useState} from 'react';
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
+import {createAction} from '../store/asyncMethods/PostMethods';
+import {useDispatch, useSelector} from 'react-redux'
 
 const Create = () =>{
     const [currentImage, setCurentImage] = useState('Escolher Imagem')
     const [imagePreview, setImagePreview]=useState('');
+    const dispatch = useDispatch();
+    const {user:{_id, nome}} = useSelector(state => state.AuthReducer)
     const fileHandle = e => {
         setCurentImage(e.target.files[0].name)
         setState({
@@ -52,6 +56,16 @@ const Create = () =>{
     const [value, setValue] = useState('');
    const createPost = (e) =>{
        e.preventDefault();
+       const {title, description, image} = state;
+       const formData = new FormData();
+       formData.append('title', title);
+       formData.append('body', value);
+       formData.append('image', image)
+       formData.append('description', description)
+       formData.append('slug', slug)
+       formData.append('name', nome)
+       formData.append('id', _id)
+       dispatch(createAction(formData))
        
    }
 
@@ -99,10 +113,21 @@ const Create = () =>{
                                         onChange={setValue} />
                                 </div>
                                 <div className='group'>
-                                    <input type='submit' value='Criando Post'className='btn btn-default btn-block' />
+                                    <label htmlFor='description'>Meta Descrição</label>
+                                    <textarea 
+                                        name='description' 
+                                        id='description' 
+                                        cols='30' 
+                                        rows='10' 
+                                        defaultValue={state.description}
+                                        onChange={handleDescription}
+                                        className='group_control'
+                                        placeholder='Meta descirção...'
+                                        maxLength='150'>
+                                    </textarea>
+                                 <p className='length'>  {state.description ? state.description.length : 0}</p> 
                                 </div>
-                            
-                        </div>
+                             </div>
                     </div>
                     <div className='col-6 p-15'>
                         <div className='card'>
@@ -129,21 +154,12 @@ const Create = () =>{
                                 <div className='imagePreview'>
                                     {imagePreview ? <img src={imagePreview} /> : ''}
                                 </div>
-                                <div className='group'>
-                                    <label htmlFor='description'>Meta Descrição</label>
-                                    <textarea 
-                                        name='description' 
-                                        id='description' 
-                                        cols='30' 
-                                        rows='10' 
-                                        defaultValue={state.description}
-                                        onChange={handleDescription}
-                                        className='group_control'
-                                        placeholder='Meta descirção...'
-                                        maxLength='150'>
-                                    </textarea>
-                                 <p className='length'>  {state.description ? state.description.length : 0}</p> 
-                                </div>
+                            </div>
+                            <div className='group'>
+                                    <input 
+                                        type='submit' 
+                                        value='Criando Post'
+                                        className='btn btn-default btn-block' />
                             </div>
                         </div>
                     </div>
