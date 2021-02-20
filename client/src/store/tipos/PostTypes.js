@@ -6,6 +6,7 @@ export const REDIRECT_TRUE = 'REDIRECT_TRUE';
 export const REDIRECT_FALSE = 'REDIRECT_FALSE';
 export const SET_MENSSAGE = 'SET_MENSSAGE';
 export const REMOVE_MENSSAGE = 'REMOVE_MENSSAGE';
+export const SET_POSTS = 'SET_POSTS';
 
 
 

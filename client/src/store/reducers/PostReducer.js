@@ -1,12 +1,13 @@
-import {SET_LOADER, CLOSE_LOADER, CREATE_ERRORS, REDIRECT_TRUE, REDIRECT_FALSE, SET_MENSSAGE, REMOVE_MENSSAGE, REMOVE_ERRORS} from '../tipos/PostTypes';
+import {SET_LOADER, CLOSE_LOADER, CREATE_ERRORS, REDIRECT_TRUE, REDIRECT_FALSE, SET_MENSSAGE, REMOVE_MENSSAGE, REMOVE_ERRORS, SET_POSTS} from '../tipos/PostTypes';
 const initState = {
     loading: false,
     createErrors:[],
     redirect: false,
     menssage: '',
+    posts: [],
 }
 
-const PostReducer = (state = initState, action) => {
+export const PostReducer = (state = initState, action) => {
     const {type, payload} = action;
     if(type === SET_LOADER){
         return {...state, loading: true}
@@ -28,6 +29,13 @@ const PostReducer = (state = initState, action) => {
     }else{
     return state;
 }
-}
+};
 
-export default PostReducer;
+export const FetchPost = (state = initState, action) => {
+    const {type, payload} = action;
+    if(type === SET_POSTS){
+        return{...state, posts: payload};
+    }else{
+        return state
+    }
+}
