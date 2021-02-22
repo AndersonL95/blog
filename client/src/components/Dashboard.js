@@ -6,6 +6,8 @@ import toast, {Toaster} from 'react-hot-toast';
 import {fetchPost} from '../store/asyncMethods/PostMethods';
 import {Link} from 'react-router-dom';
 import {BsPencil, BsArchive} from 'react-icons/bs';
+import Loader from './auth/Loader';
+import SideBar from './SideBar';
 
 const Dashboard = () => {
     const {redirect, menssage, loading} = useSelector((state) => state.PostReducer)
@@ -39,25 +41,31 @@ const Dashboard = () => {
             }}
         />
         <div className="container mt-100">
-            <div className="row">
-                <div className='col-3'>
-                    Lugar para visualizar e editar as suas postagens, LOCAL EM CONSTRUÇÂO, aguarde para mais novidades no futro.
-                    Estamos trabalhando para criar e melhorar a estrutura do site, agradeço a compreenção.
-
+            <div className="row ml-minus-15 mr-minus-15">
+                <div className='col-3 p-15'>
+                    <SideBar />
                 </div>
-                <div className='col-9'>
-                    {!loading ? posts.length > 0 ? posts.map((post) => (
-                        <div className='dashboard_posts'key={post._id}>
-                            <div className='dashboard_posts_title'>
-                                <Link to='/'>{post.title}</Link>
+                <div className='col-9 p-15'>
+                    {!loading ?(
+                         posts.length > 0 ?(
+                            posts.map((post) => (
+                                <div className='dashboard_posts'key={post._id}>
+                                    <div className='dashboard_posts_title'>
+                                        <Link to='/'>{post.title}</Link>
+                                </div>
+                                <div className='dashboard_posts_links'>
+                                    <Link to ='/'><BsPencil className='icon'  /></Link>
+                                    <BsArchive className='icon'/>
+                                </div>
                             </div>
-                            <div className='dashboard_post_links'>
-                            <Link to ='/'><BsPencil className='icon'  /></Link>
-                            <BsArchive className='icon'/>
-                            </div>
-                            
-                        </div>   
-                    )):'Você não tem nenhuma postagem': 'loading...'}
+                           
+                        ))
+                    ) : (
+                        'Você não tem nenhuma postagem'
+                    )
+                    ) : (
+                         <Loader />
+                    )}
                 </div>
             </div>
         </div>
