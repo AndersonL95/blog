@@ -3,5 +3,5 @@ const router = express.Router();
 const {createPost, fetchPost} = require('../controllers/postController');
 const auth = require('../utils/auth');
 router.post('/create_post', auth, createPost);
-router.get('/posts/:id', auth, fetchPost)
+router.get('/posts/:id/:page', auth, fetchPost)
 module.exports = router;

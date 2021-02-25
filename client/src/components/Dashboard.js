@@ -4,16 +4,20 @@ import { useSelector, useDispatch} from 'react-redux';
 import {REDIRECT_FALSE, REMOVE_MENSSAGE} from '../store/tipos/PostTypes';
 import toast, {Toaster} from 'react-hot-toast';
 import {fetchPost} from '../store/asyncMethods/PostMethods';
-import {Link} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import {BsPencil, BsArchive} from 'react-icons/bs';
 import Loader from './auth/Loader';
 import SideBar from './SideBar';
+import Pagination from './/Pagination';
 
 const Dashboard = () => {
     const {redirect, menssage, loading} = useSelector((state) => state.PostReducer)
     const { user: {_id},} = useSelector((state) => state.AuthReducer);
-    const {posts} = useSelector(state => state.FetchPost)
-    console.log('meus posts:', posts)
+    const {posts, count, perPage} = useSelector(state => state.FetchPost)
+    let {page} = useParams();
+    if(page === undefined){
+        page = 1;
+    }
     const dispatch = useDispatch()
     useEffect(() => {
         if(redirect){
@@ -23,8 +27,8 @@ const Dashboard = () => {
             toast.success(menssage);
             dispatch({type: REMOVE_MENSSAGE});
         }
-        dispatch(fetchPost(_id));
-    },[])
+        dispatch(fetchPost(_id, page));
+    },[page])
     return (
     <>
         <Helmet>
@@ -66,6 +70,7 @@ const Dashboard = () => {
                     ) : (
                          <Loader />
                     )}
+                    <Pagination page={page} perPage={perPage} count={count}/>
                 </div>
             </div>
         </div>

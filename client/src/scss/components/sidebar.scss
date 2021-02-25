@@ -9,20 +9,31 @@
         border-bottom-left-radius:  .6rem;
         border-bottom-right-radius: .6rem;
     }
-    background: $white;
+    
     &_element {
         background: $white;
         padding: 1.5rem;
         border: 1px solid $silverLight;
         border-top: none;
-    }
-    a {
-        color: $black;
-        font-size: 1.4rem;
+        cursor: pointer;
+    
+        a {
+            color: $black;
+            font-size: 1.4rem;
 
-    }
-    h3 {
-        font-size: 1.6rem;
-        font-weight: 400;
+        }
+        h3 {
+            font-size: 1.6rem;
+            font-weight: 400;
+        }
+        &:hover {
+            background: $red1;
+        }
+        &:hover a {
+            color: $white;
+        }
+        &:hover h3{
+            color: $white;
+        }
     }
 }
