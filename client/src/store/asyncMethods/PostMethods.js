@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { dispatch } from 'react-hot-toast';
-import { CREATE_ERRORS, REMOVE_ERRORS, SET_LOADER, CLOSE_LOADER, REDIRECT_TRUE, REDIRECT_FALSE, SET_MENSSAGE, REMOVE_MENSSAGE, SET_POSTS} from '../tipos/PostTypes';
+import { CREATE_ERRORS, REMOVE_ERRORS, SET_LOADER, CLOSE_LOADER, REDIRECT_TRUE, REDIRECT_FALSE, SET_MENSSAGE, REMOVE_MENSSAGE, SET_POSTS, SET_POST, POST_REQUEST, } from '../tipos/PostTypes';
 
 export const createAction = (postData) => {
 	return async (dispatch, getState) => {
@@ -30,7 +29,7 @@ export const createAction = (postData) => {
 	};
 };
 
-export const fetchPost = (id, page) => {
+export const fetchPosts = (id, page) => {
 	return async (dispatch, getState) => {
 		const {AuthReducer:{token}} = getState();
 		dispatch({type: SET_LOADER})
@@ -47,6 +46,27 @@ export const fetchPost = (id, page) => {
 			dispatch({type: SET_POSTS, payload: {response, count, perPage}})
 		} catch (error) {
 			dispatch({type: CLOSE_LOADER});
+		}
+	}
+}
+export const fetchPost = (id) => {
+	return async (dispatch, getState) => {
+		const {
+			AuthReducer: { token },
+		} = getState();
+		const config = {
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		};
+		dispatch({type: SET_LOADER})
+		try {const {data: {post}} = await axios.get(`/post/${id}`, config)
+			dispatch({type: CLOSE_LOADER})
+			dispatch({type: SET_POST, payload: post})
+			dispatch({type: POST_REQUEST});
+		} catch (error) {
+			dispatch({type: CLOSE_LOADER})
+
 		}
 	}
 }

@@ -1,4 +1,4 @@
-import {SET_LOADER, CLOSE_LOADER, CREATE_ERRORS, REDIRECT_TRUE, REDIRECT_FALSE, SET_MENSSAGE, REMOVE_MENSSAGE, REMOVE_ERRORS, SET_POSTS} from '../tipos/PostTypes';
+import {SET_LOADER, CLOSE_LOADER, CREATE_ERRORS, REDIRECT_TRUE, REDIRECT_FALSE, SET_MENSSAGE, REMOVE_MENSSAGE, REMOVE_ERRORS, SET_POSTS, SET_POST, POST_REQUEST, POST_RESET} from '../tipos/PostTypes';
 const initState = {
     loading: false,
     createErrors:[],
@@ -7,6 +7,8 @@ const initState = {
     posts: [],
     perPage: 0,
     count: 0,
+    post:{},
+    postStatus: false
 }
 
 export const PostReducer = (state = initState, action) => {
@@ -33,11 +35,23 @@ export const PostReducer = (state = initState, action) => {
 }
 };
 
-export const FetchPost = (state = initState, action) => {
+export const FetchPosts = (state = initState, action) => {
     const {type, payload} = action;
     if(type === SET_POSTS){
         return{...state, posts: payload.response, count: payload.count, perPage: payload.perPage};
     }else{
         return state
+    }
+}
+export const FetchPost = (state = initState, action) => {
+    const {type, payload} = action;
+    if(type === SET_POST){
+        return {...state, post: payload };
+    }else if(type === POST_REQUEST) {
+        return {...state, postStatus: true }
+    }else if(type === POST_RESET){
+        return{...state, postStatus: false}
+    }else{
+        return state;
     }
 }

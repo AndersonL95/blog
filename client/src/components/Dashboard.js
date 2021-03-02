@@ -3,7 +3,7 @@ import {Helmet} from 'react-helmet';
 import { useSelector, useDispatch} from 'react-redux';
 import {REDIRECT_FALSE, REMOVE_MENSSAGE} from '../store/tipos/PostTypes';
 import toast, {Toaster} from 'react-hot-toast';
-import {fetchPost} from '../store/asyncMethods/PostMethods';
+import {fetchPosts} from '../store/asyncMethods/PostMethods';
 import {Link, useParams} from 'react-router-dom';
 import {BsPencil, BsArchive} from 'react-icons/bs';
 import Loader from './auth/Loader';
@@ -13,7 +13,7 @@ import Pagination from './/Pagination';
 const Dashboard = () => {
     const {redirect, menssage, loading} = useSelector((state) => state.PostReducer)
     const { user: {_id},} = useSelector((state) => state.AuthReducer);
-    const {posts, count, perPage} = useSelector(state => state.FetchPost)
+    const {posts, count, perPage} = useSelector(state => state.FetchPosts)
     let {page} = useParams();
     if(page === undefined){
         page = 1;
@@ -27,7 +27,7 @@ const Dashboard = () => {
             toast.success(menssage);
             dispatch({type: REMOVE_MENSSAGE});
         }
-        dispatch(fetchPost(_id, page));
+        dispatch(fetchPosts(_id, page));
     },[page])
     return (
     <>
@@ -58,7 +58,7 @@ const Dashboard = () => {
                                         <Link to='/'>{post.title}</Link>
                                 </div>
                                 <div className='dashboard_posts_links'>
-                                    <Link to ='/'><BsPencil className='icon'  /></Link>
+                                    <Link to ={`/edit/ ${post._id}`}><BsPencil className='icon'  /></Link>
                                     <BsArchive className='icon'/>
                                 </div>
                             </div>
