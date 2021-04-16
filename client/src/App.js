@@ -1,6 +1,6 @@
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom"; 
 import Home from "./components/Home";
-import './main.scss';
+import './main.scss'
 import Navbar from "./components/Navbar";
 import Registro from "./components/auth/Registro";
 import Login from "./components/auth/Login";
@@ -15,25 +15,21 @@ import Edit from './components/Edit';
 
 function App() {
   return (
-    <Provider store={Store}>
-    <Router>
-      <Navbar />
-      <Switch>
-        <RouteLinks path="/" exact component={Home} />
-        <RouteLinks path="/registro" exact component={Registro} />
-        <RouteLinks path="/login" exact component={Login} />
-        <PrivateRoute path="/dashboard/:page?" exact component={Dashboard} />
-        <PrivateRoute path='/create' exact component={Create} />
-        <PrivateRoute path='/edit/:id' exact component={Edit} />
-        <Route component={NotFound}/>
-      </Switch>
-
-    </Router>
-    </Provider>
-   
-  );
-
+		<Provider store={Store}>
+			<Router>
+				<Navbar />
+				<Switch>
+					<Route path='/' exact component={Home} />
+					<RouteLinks path='/register' exact component={Registro} />
+					<RouteLinks path='/login' exact component={Login} />
+					<PrivateRoute path='/dashboard/:page?' exact component={Dashboard} />
+					<PrivateRoute path='/create' exact component={Create} />
+					<PrivateRoute path='/edit/:id' exact component={Edit} />
+					<Route component={NotFound} />
+				</Switch>
+			</Router>
+		</Provider>
+	);
 }
-
 
 export default App;

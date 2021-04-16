@@ -5,7 +5,7 @@ const Post = require('../models/Post');
 module.exports.createPost = (req , res) => {
     const form = formidable({multiples: true});
     form.parse(req, async (error, fields, files) =>{
-        const {title, body, description, slug, id, nome} = fields;
+        const {title, body, description, slug, id, name} = fields;
             const errors = [];
             if(title===''){
                 errors.push({msg: 'Titulo é requerido'});
@@ -49,7 +49,7 @@ module.exports.createPost = (req , res) => {
                                     image: files.image.name,
                                     description,
                                     slug,
-                                    userName: 'nome',
+                                    userName: name,
                                     userId: id,
                                 });
                                 return res.status(200).json({msg: 'Seu post foi criado com suceso!',response,})
@@ -73,7 +73,7 @@ module.exports.fetchPosts = async (req, res) => {
         const response = await Post.find({userId: id}).skip(skip).limit(perPage).sort({updateAt: -1});
         return res.status(200).json({response: response, count, perPage});
     } catch (error) {
-     return res.status(500).json({ errors: error, msg: error.menssage})   
+     return res.status(500).json({ errors: error, msg: error.message})   
     }
 };
 module.exports.fetchPost = async (req, res) =>{ 
@@ -82,7 +82,7 @@ module.exports.fetchPost = async (req, res) =>{
         const post = await Post.findOne({_id: id})
         return res.status(200).json({post})
     } catch (error) {
-        return res.status(500).json({ errors: error, msg: error.menssage})   
+        return res.status(500).json({ errors: error, msg: error.message})   
 
     }
 }

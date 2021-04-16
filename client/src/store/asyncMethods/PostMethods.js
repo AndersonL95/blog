@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { CREATE_ERRORS, REMOVE_ERRORS, SET_LOADER, CLOSE_LOADER, REDIRECT_TRUE, REDIRECT_FALSE, SET_MENSSAGE, REMOVE_MENSSAGE, SET_POSTS, SET_POST, POST_REQUEST, } from '../tipos/PostTypes';
+import { CREATE_ERRORS, REMOVE_ERRORS, SET_LOADER, CLOSE_LOADER, REDIRECT_TRUE, REDIRECT_FALSE, SET_MESSAGE, REMOVE_MENSSAGE, SET_POSTS, SET_POST, POST_REQUEST, } from '../tipos/PostTypes';
 
 export const createAction = (postData) => {
 	return async (dispatch, getState) => {
@@ -19,7 +19,7 @@ export const createAction = (postData) => {
 			dispatch({ type: CLOSE_LOADER });
 			dispatch({ type: REMOVE_ERRORS });
 			dispatch({ type: REDIRECT_TRUE });
-			dispatch({ type: SET_MENSSAGE, payload: msg });
+			dispatch({ type: SET_MESSAGE, payload: msg });
 		} catch (error) {
 			console.log(error.response);
 			const { errors } = error.response.data;
@@ -60,12 +60,16 @@ export const fetchPost = (id) => {
 			},
 		};
 		dispatch({type: SET_LOADER})
-		try {const {data: {post}} = await axios.get(`/post/${id}`, config)
+		try {
+			const {
+				data: {post},
+		} = await axios.get(`/post/${id}`, config)
 			dispatch({type: CLOSE_LOADER})
 			dispatch({type: SET_POST, payload: post})
 			dispatch({type: POST_REQUEST});
 		} catch (error) {
 			dispatch({type: CLOSE_LOADER})
+			console.log(error.message)
 
 		}
 	}

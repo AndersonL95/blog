@@ -11,24 +11,24 @@ const postSchema = new Schema({
     },
     image: {
         type: String,
-        required: true
+        required: true,
     },
     description: {
         type: String,
-        required: true
+        required: true,
     },
     slug:{
         type: String,
-        required: true
+        required: true,
     },
     userName: {
         type: String,
-        required: true
+        required: true,
     },
     userId: {
         type: Schema.Types.ObjectId,
-        ref: 'user'
-    }
+        ref: 'user',
+    },
 }, {timestamps: true}
 );
 module.exports = model('post', postSchema)

@@ -23,6 +23,7 @@ const Navbar = () =>{
             </div> 
     ) : ( 
             <div className="navbar_right">
+                
                     <li>
                         <Link to='/login'>Login</Link>
                     </li>

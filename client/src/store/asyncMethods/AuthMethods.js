@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {SET_LOADER, CLOSE_LOADER, REGISTER_ERRORS, SET_TOKEN, LOGIN_ERRORS} from '../tipos/userTypes';
+
 export const postRegistro = (state) => {
 
     return async(dispatch) =>{

@@ -1,16 +1,17 @@
-const express = require('express')
-var bodyParser = require('body-parser')
+const express = require('express');
+const bodyParser = require('body-parser');
 const connect = require('./config/db');
-const router = require('./routes/usuario_rotas')
-const PostRoutes = require('./routes/PostRoutes');
-require('dotenv').config()
+const router = require('./routes/usuario_rotas');
+const postRoutes = require('./routes/PostRoutes');
+require('dotenv').config();
 const app = express();
 
-connect()
-app.use(bodyParser.json())
+// connect mongodb database
+connect();
+app.use(bodyParser.json());
 app.use('/', router);
-app.use('/',PostRoutes);
-const PORT = process.env.PORT || 5000
+app.use('/', postRoutes);
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-    console.log('O processo está rodando')
+	console.log('Your app is running');
 });

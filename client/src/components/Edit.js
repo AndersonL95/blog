@@ -1,36 +1,34 @@
-import {Helmet} from 'react-helmet';
-import {useParams} from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import Helmet from 'react-helmet';
+import { useParams } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import React, {useState, useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {fetchPost} from '../store/asyncMethods/PostMethods';
-import {POST_RESET} from '../store/tipos/PostTypes';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchPost } from '../store/asyncMethods/PostMethods';
+import { POST_RESET } from '../store/tipos/PostTypes';
 
 const Edit = () => {
-    const {id} = useParams();
-    const [value, setValue] = useState('')
-    const [state, setState] = useState({
-        title: '',
-        description: '',
-    })
-    const dispatch = useDispatch();
-    const {loading} = useSelector(state => state.PostReducer);
-    const {post, postStatus} = useSelector(state => state.FetchPost);
-    useEffect(() => {
-        if(postStatus){
-            setState({
-                title: post.title,
-                description: post.description,
-            })
-            setValue(post.body);
-            dispatchEvent({type: POST_RESET});
-
-        }else{
-            dispatch(fetchPost(id))
-        }
-        
-    }, [post])
+	const { id } = useParams();
+	const [value, setValue] = useState('');
+	const [state, setState] = useState({
+		title: '',
+		description: '',
+	});
+	const dispatch = useDispatch();
+	const { loading } = useSelector((state) => state.PostReducer);
+	const { post, postStatus } = useSelector((state) => state.FetchPost);
+	useEffect(() => {
+		if (postStatus) {
+			setState({
+				title: post.title,
+				description: post.description,
+			});
+			setValue(post.body);
+			dispatch({ type: POST_RESET });
+		} else {
+			dispatch(fetchPost(id));
+		}
+	}, [post]);
     console.log(post)
     return(
         <div className='mt-100'>

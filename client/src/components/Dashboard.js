@@ -1,7 +1,7 @@
 import { useEffect} from 'react';
 import {Helmet} from 'react-helmet';
 import { useSelector, useDispatch} from 'react-redux';
-import {REDIRECT_FALSE, REMOVE_MENSSAGE} from '../store/tipos/PostTypes';
+import {REDIRECT_FALSE, REMOVE_MESSAGE} from '../store/tipos/PostTypes';
 import toast, {Toaster} from 'react-hot-toast';
 import {fetchPosts} from '../store/asyncMethods/PostMethods';
 import {Link, useParams} from 'react-router-dom';
@@ -25,7 +25,7 @@ const Dashboard = () => {
         }
         if(menssage){
             toast.success(menssage);
-            dispatch({type: REMOVE_MENSSAGE});
+            dispatch({type: REMOVE_MESSAGE});
         }
         dispatch(fetchPosts(_id, page));
     },[page])
@@ -58,7 +58,7 @@ const Dashboard = () => {
                                         <Link to='/'>{post.title}</Link>
                                 </div>
                                 <div className='dashboard_posts_links'>
-                                    <Link to ={`/edit/ ${post._id}`}><BsPencil className='icon'  /></Link>
+                                    <Link to ={`/edit/${post._id}`}><BsPencil className='icon'  /></Link>
                                     <BsArchive className='icon'/>
                                 </div>
                             </div>

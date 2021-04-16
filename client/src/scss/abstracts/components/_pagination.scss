@@ -1,0 +1,35 @@
+.pagination{
+    display: flex;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    li:first-child{
+        border-left:  1px solid $red1!important;
+        border-top-left-radius: .6rem;
+        border-bottom-left-radius: .6rem;
+    }
+    li:last-child{
+        border-left:  1px solid $red1!important;
+        border-top-right-radius: .6rem;
+        border-bottom-right-radius: .6rem;
+    }
+    li {
+        list-style-type: none;
+        display: block;
+            padding: 1rem;
+            border: 1px solid $red1;
+            border-left: none;
+            cursor: pointer;
+        a {
+            
+           padding: 1rem;
+           color: $red1;
+           font-size: 1.4rem;
+        }
+    }
+}
+.active {
+    background: $red1;
+    a{
+        color: $white!important;
+    }
+}

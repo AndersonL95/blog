@@ -67,6 +67,7 @@ module.exports.login = async (req, res) =>{
             return res.status(404).json({errors:[{msg: "email não encontrado!"}]})
         }
     }catch (error){
+        console.log(error.message)
         return res.status(500).json({errors: error})
     }
 };

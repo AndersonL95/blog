@@ -1,9 +1,9 @@
-import {SET_LOADER, CLOSE_LOADER, CREATE_ERRORS, REDIRECT_TRUE, REDIRECT_FALSE, SET_MENSSAGE, REMOVE_MENSSAGE, REMOVE_ERRORS, SET_POSTS, SET_POST, POST_REQUEST, POST_RESET} from '../tipos/PostTypes';
+import {SET_LOADER, CLOSE_LOADER, CREATE_ERRORS, REDIRECT_TRUE, REDIRECT_FALSE, SET_MESSAGE, REMOVE_MESSAGE, REMOVE_ERRORS, SET_POSTS, SET_POST, POST_REQUEST, POST_RESET} from '../tipos/PostTypes';
 const initState = {
     loading: false,
-    createErrors:[],
+    createErrors: [],
     redirect: false,
-    menssage: '',
+    message: '',
     posts: [],
     perPage: 0,
     count: 0,
@@ -23,12 +23,11 @@ export const PostReducer = (state = initState, action) => {
         return {...state, redirect: true}
     }else if(type === REDIRECT_FALSE){
         return{...state, redirect: false}    
-    }else if(type === SET_MENSSAGE){
-        return{ ...state, menssage: action.payload}
-    }else if(type === REMOVE_MENSSAGE){
-        return{...state , menssage: ''}
-    }
-    else if(type === REMOVE_ERRORS){
+    }else if(type === SET_MESSAGE){
+        return{ ...state, message: action.payload}
+    }else if(type === REMOVE_MESSAGE){
+        return{...state , message: ''}
+    }else if(type === REMOVE_ERRORS){
         return{ ...state, createErrors: [] };
     }else{
     return state;
