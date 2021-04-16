@@ -1,4 +1,4 @@
-import {SET_LOADER, CLOSE_LOADER, CREATE_ERRORS, REDIRECT_TRUE, REDIRECT_FALSE, SET_MESSAGE, REMOVE_MESSAGE, REMOVE_ERRORS, SET_POSTS, SET_POST, POST_REQUEST, POST_RESET} from '../tipos/PostTypes';
+import {SET_LOADER, CLOSE_LOADER, CREATE_ERRORS, REDIRECT_TRUE, REDIRECT_FALSE, SET_MESSAGE, REMOVE_MESSAGE, REMOVE_ERRORS, SET_POSTS, SET_POST, POST_REQUEST, POST_RESET, RESET_UPDATE, SET_UPDATE_ERRORS, RESET_UPDATE_ERRORS} from '../tipos/PostTypes';
 const initState = {
     loading: false,
     createErrors: [],
@@ -8,7 +8,8 @@ const initState = {
     perPage: 0,
     count: 0,
     post:{},
-    postStatus: false
+    postStatus: false,
+    editErrors: [],
 }
 
 export const PostReducer = (state = initState, action) => {
@@ -50,6 +51,16 @@ export const FetchPost = (state = initState, action) => {
         return {...state, postStatus: true }
     }else if(type === POST_RESET){
         return{...state, postStatus: false}
+    }else{
+        return state;
+    }
+};
+export const UpdatePost = (state = initState, action) => {
+    const {type, payload} = action;
+    if(type === SET_UPDATE_ERRORS){
+        return{...state, editErrors: payload}
+    }else if(type === RESET_UPDATE_ERRORS){
+        return{...state, editErrors: []}
     }else{
         return state;
     }

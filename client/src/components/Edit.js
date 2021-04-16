@@ -1,22 +1,26 @@
 import { useState, useEffect } from 'react';
 import Helmet from 'react-helmet';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPost } from '../store/asyncMethods/PostMethods';
-import { POST_RESET } from '../store/tipos/PostTypes';
+import { fetchPost, updateAction } from '../store/asyncMethods/PostMethods';
+import { POST_RESET, RESET_UPDATE, RESET_UPDATE_ERRORS } from '../store/tipos/PostTypes';
+import toast, {Toaster} from 'react-hot-toast';
 
 const Edit = () => {
-	const { id } = useParams();
+    const {push} = useHistory();
+    const { Quill} = ReactQuill;
+    const { id } = useParams();
 	const [value, setValue] = useState('');
 	const [state, setState] = useState({
 		title: '',
 		description: '',
 	});
 	const dispatch = useDispatch();
-	const { loading } = useSelector((state) => state.PostReducer);
+	const { loading, redirect } = useSelector((state) => state.PostReducer);
 	const { post, postStatus } = useSelector((state) => state.FetchPost);
+    const {editErrors} = useSelector(state => state.UpdatePost);
 	useEffect(() => {
 		if (postStatus) {
 			setState({
@@ -29,19 +33,47 @@ const Edit = () => {
 			dispatch(fetchPost(id));
 		}
 	}, [post]);
-    console.log(post)
+    const updatePost = e => {
+        e.preventDefault()
+         dispatch(updateAction({
+            title: state.title,
+            body: value,
+            description: state.description,
+            id: post._id,
+        })) 
+        
+    }
+    useEffect(() =>{
+        if(editErrors.length !== 0){
+            editErrors.map((error) => toast.error(error.msg))
+        } 
+    }, [editErrors]);
+    useEffect(() =>{
+        if(redirect){
+            push('/dashboard')
+        }
+    }, [redirect])
     return(
         <div className='mt-100'>
             <Helmet>
                 <title>Edit Post</title>
                 <meta name="descrição" content="Edição do post" />
             </Helmet>
+            <Toaster 
+                position='top-right' 
+                reverseOrder={false}
+                toastOptions={{
+                style: {
+                fontSize: '14px',
+                },
+                }}
+            />
             <div className='container'>
                 <div className='row'>
                     <div className='col-6'>
                         <div className='card'>
                             <h3 className='card_h3'>Editar Post</h3>
-                            <form>
+                            <form onSubmit={updatePost}>
                                 <div className='group'>
                                     <label htmlFor='title'>Titulo do Post</label>
                                     <input 
@@ -74,6 +106,8 @@ const Edit = () => {
                                             defaultValue={state.description}
                                             onChange={(e) => 
                                                 setState({...state, description: e.target.value})}
+                                            onKeyUp={(e) => 
+                                            setState({...state, description: e.target.value})}
                                             className='group_control'
                                             placeholder='Meta descirção...'
                                             maxLength='150'>
