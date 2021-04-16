@@ -5,8 +5,8 @@ import {REDIRECT_FALSE, REMOVE_MESSAGE} from '../store/tipos/PostTypes';
 import toast, {Toaster} from 'react-hot-toast';
 import {fetchPosts} from '../store/asyncMethods/PostMethods';
 import {Link, useParams} from 'react-router-dom';
-import {BsPencil, BsArchive} from 'react-icons/bs';
-import Loader from './auth/Loader';
+import {BsPencil, BsArchive, BsCardImage} from 'react-icons/bs';
+import Loader from './Loader';
 import SideBar from './SideBar';
 import Pagination from './/Pagination';
 
@@ -58,6 +58,7 @@ const Dashboard = () => {
                                         <Link to='/'>{post.title}</Link>
                                 </div>
                                 <div className='dashboard_posts_links'>
+                                    <Link to={`/updateImage/${post._id}`}><BsCardImage className='icon' /></Link>
                                     <Link to ={`/edit/${post._id}`}><BsPencil className='icon'  /></Link>
                                     <BsArchive className='icon'/>
                                 </div>

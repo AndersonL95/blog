@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchPost, updateAction } from '../store/asyncMethods/PostMethods';
 import { POST_RESET, RESET_UPDATE, RESET_UPDATE_ERRORS } from '../store/tipos/PostTypes';
 import toast, {Toaster} from 'react-hot-toast';
+import Loader from './Loader'
 
 const Edit = () => {
     const {push} = useHistory();
@@ -46,6 +47,7 @@ const Edit = () => {
     useEffect(() =>{
         if(editErrors.length !== 0){
             editErrors.map((error) => toast.error(error.msg))
+            dispatch({type:RESET_UPDATE_ERRORS})
         } 
     }, [editErrors]);
     useEffect(() =>{
@@ -53,7 +55,7 @@ const Edit = () => {
             push('/dashboard')
         }
     }, [redirect])
-    return(
+    return !loading ?  (
         <div className='mt-100'>
             <Helmet>
                 <title>Edit Post</title>
@@ -117,15 +119,14 @@ const Edit = () => {
                                 </div>
                                 <div className='group'>
                                     <input type='submit' value='Editar' className='btn btn-default btn-block'/>
-
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
-    )
+    ) : ( <Loader />
+        );
 }
 export default Edit;
