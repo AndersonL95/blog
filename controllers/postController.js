@@ -4,6 +4,7 @@ const fs = require('fs');
 const Post = require('../models/Post');
 const {body, validationResult} = require("express-validator");
 const {htmlToText} = require('html-to-text');
+const { post } = require('../routes/PostRoutes');
 
 module.exports.createPost = (req , res) => {
     const form = formidable({multiples: true});
@@ -120,4 +121,41 @@ module.exports.updatePost = async(req, res) => {
 
         }
     }
+}
+module.exports.updateImage = (req, res) => {
+    const form = formidable({multiples: true})
+        form.parse(req, (errors, fields, files) =>{
+            const {id} = fields
+            const imageErrors = []
+            if(Object.keys(files).length === 0){
+                imageErrors.push({msg: 'Por favor insira uma imagem!'})
+            }else{
+                const {type} = files.image
+                const split = type.split('/')
+                const extension = split[1].toLowerCase()
+                if(extension !== 'jpg' && extension !== 'jpeg' && extension !== 'png'){
+                    imageErrors.push({msg: `${extension} essa extenção não é valida!`})
+                }else{
+                    files.image.name = uuidv4() + '.' + extension;
+
+                }
+            }
+            if(imageErrors.length !==0){
+                return res.status(400).json({ errors: imageErrors})
+            }else{
+                const newPath = __dirname + `/../client/public/imagens/${files.image.name}`
+                fs.copyFile(files.image.path, newPath, async(error) => {
+                    if(!error){
+                        try {
+                            const response = await Post.findByIdAndUpdate(id, {image: files.image.name})
+                            return res.status(200).json({msg: 'Sua imagem foi alterada com sucesso!'})
+                        } catch (error) {
+                            return res.status(500).json({ errors: error, msg: error.message})   
+
+                            
+                        }
+                    }
+                })
+            }
+        })
 }
