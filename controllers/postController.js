@@ -4,7 +4,6 @@ const fs = require('fs');
 const Post = require('../models/Post');
 const {body, validationResult} = require("express-validator");
 const {htmlToText} = require('html-to-text');
-const { post } = require('../routes/PostRoutes');
 
 module.exports.createPost = (req , res) => {
     const form = formidable({multiples: true});

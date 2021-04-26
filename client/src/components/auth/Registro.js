@@ -8,7 +8,7 @@ import {postRegistro} from '../../store/asyncMethods/AuthMethods';
 const Registro = (props) =>{
     const [state, setState] = useState({
 
-        nome: '',
+        name: '',
         email: '',
         senha: ''
     });

@@ -8,7 +8,7 @@ import {Link, useParams} from 'react-router-dom';
 import {BsPencil, BsArchive, BsCardImage} from 'react-icons/bs';
 import Loader from './Loader';
 import SideBar from './SideBar';
-import Pagination from './/Pagination';
+import Pagination from './Pagination';
 import axios from 'axios'
 
 const Dashboard = () => {
