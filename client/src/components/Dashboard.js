@@ -10,10 +10,11 @@ import Loader from './Loader';
 import SideBar from './SideBar';
 import Pagination from './Pagination';
 import axios from 'axios'
+import moment from 'moment'
+
 
 const Dashboard = () => {
     const {redirect, message, loading} = useSelector((state) => state.PostReducer)
-
     const { user: {_id},
     token,
     } = useSelector((state) => state.AuthReducer);
@@ -57,6 +58,8 @@ const Dashboard = () => {
     useEffect(() =>{
         dispatch(fetchPosts(_id, page));
     }, [page])
+    
+    
     return (
     <>
         <Helmet>
@@ -84,6 +87,7 @@ const Dashboard = () => {
                                 <div className='dashboard_posts'key={post._id}>
                                     <div className='dashboard_posts_title'>
                                         <Link to='/'>{post.title}</Link>
+                                        <span>Publicado em {moment().subtract(10, 'days').calendar()}</span>
                                 </div>
                                 <div className='dashboard_posts_links'>
                                     <Link to={`/updateImage/${post._id}`}><BsCardImage className='icon' /></Link>

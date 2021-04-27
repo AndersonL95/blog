@@ -14,6 +14,7 @@ import Create from './components/Create';
 import Edit from './components/Edit';
 import EditImage from "./components/EditImge";
 import UpdateName from './components/UpdateName';
+import ChangePassword from './components/ChangePassword';
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
 					<PrivateRoute path='/edit/:id' exact component={Edit} />
 					<PrivateRoute path='/updateImage/:id' exact component={EditImage} />
 					<PrivateRoute path='/updateName' exact component={UpdateName} />
+					<PrivateRoute path='/updatePassword' exact component={ChangePassword} />
 					<Route component={NotFound} />
 				</Switch>
 			</Router>

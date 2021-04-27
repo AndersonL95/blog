@@ -6,7 +6,7 @@ const SideBar = () =>{
                 <h3>Configurações</h3>
             </div>
             <div className='sidebar_element'>
-                <Link>Mude a senha</Link>
+                <Link to='/updatePassword'>Mude a senha</Link>
             </div>
             
             <div className='sidebar_element'>
