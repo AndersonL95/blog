@@ -11,7 +11,7 @@ import SideBar from './SideBar';
 import Pagination from './Pagination';
 import axios from 'axios'
 import moment from 'moment'
-
+import 'moment/locale/pt-br'
 
 const Dashboard = () => {
     const {redirect, message, loading} = useSelector((state) => state.PostReducer)
@@ -86,7 +86,7 @@ const Dashboard = () => {
                             posts.map((post) => (
                                 <div className='dashboard_posts'key={post._id}>
                                     <div className='dashboard_posts_title'>
-                                        <Link to='/'>{post.title}</Link>
+                                        <Link to={`/details/${post._id}`}>{post.title}</Link>
                                         <span>Publicado em {moment().subtract(10, 'days').calendar()}</span>
                                 </div>
                                 <div className='dashboard_posts_links'>
@@ -104,7 +104,7 @@ const Dashboard = () => {
                     ) : (
                          <Loader />
                     )}
-                    <Pagination page={page} perPage={perPage} count={count}/>
+                    <Pagination path='dashboard' page={page} perPage={perPage} count={count}/>
                 </div>
             </div>
         </div>

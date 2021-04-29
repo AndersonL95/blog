@@ -168,3 +168,27 @@ module.exports.deletePost = async(req, res) => {
 
     }
 }
+module.exports.home = async(req, res) => {
+    page = req.params.page
+    const perPage = 6
+    const skip = (page -1) * perPage
+    try {
+        const count = await Post.find({}).countDocuments()
+        const posts = await Post.find({}).skip(skip).limit(perPage).sort({updateAt: -1})
+        return res.status(200).json({response: posts, count, perPage})
+    } catch (error) {
+        return res.status(500).json({ errors: error, msg: error.message})   
+
+        
+    }
+}
+module.exports.postDetails = async (req, res) => {
+    const id = req.params.id
+    try {
+        const post = await Post.findOne({_id: id})
+        return res.status(200).json({post})
+    } catch (error) {
+        return res.status(500).json({ errors: error, msg: error.message})   
+
+    }
+}
