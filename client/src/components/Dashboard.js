@@ -86,7 +86,7 @@ const Dashboard = () => {
                             posts.map((post) => (
                                 <div className='dashboard_posts'key={post._id}>
                                     <div className='dashboard_posts_title'>
-                                        <Link to={`/details/${post._id}`}>{post.title}</Link>
+                                        <Link to={`/details/${post.slug}`}>{post.title}</Link>
                                         <span>Publicado em {moment().subtract(10, 'days').calendar()}</span>
                                 </div>
                                 <div className='dashboard_posts_links'>

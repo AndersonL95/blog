@@ -9,7 +9,7 @@ const {
 	updateImage,
 	deletePost,
 	home,
-	postDetails
+	postDetails,
 } = require('../controllers/postController');
 const auth = require('../utils/auth');
 router.post('/create_post', auth, createPost);

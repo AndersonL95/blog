@@ -52,7 +52,7 @@ const Home = () =>{
                                                     </div>
                                                 </div>
                                                 <div className='post_body'>
-                                                    <h1 className='post_body_title'><Link to={`/details/${post._id}`}>{post.title}</Link></h1>
+                                                    <h1 className='post_body_title'><Link to={`/details/${post.slug}`}>{post.title}</Link></h1>
                                                 </div>
                                                 <div className='post_body_details'>
                                                     {htmlToText(post.body.slice(0, 500))}

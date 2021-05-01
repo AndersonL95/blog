@@ -4,7 +4,7 @@ import {SET_LOADER, CLOSE_LOADER, REGISTER_ERRORS, SET_TOKEN, LOGOUT, LOGIN_ERRO
 const initState = {
     loading: false,
     registerErrors:[],
-    loginErrors: '',
+    loginErrors: [],
     token: '',
     user: '',
 }
