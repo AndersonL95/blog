@@ -4,6 +4,7 @@ const fs = require('fs');
 const Post = require('../models/Post');
 const {body, validationResult} = require("express-validator");
 const {htmlToText} = require('html-to-text');
+const CommentSchema = require('../models/Comment')
 
 module.exports.createPost = (req , res) => {
     const form = formidable({multiples: true});
@@ -191,4 +192,18 @@ module.exports.postDetails = async (req, res) => {
         return res.status(500).json({ errors: error, msg: error.message})   
 
     }
+}
+module.exports.postComment = async (req, res) => {
+	const {id, comment, userName} = req.body
+	try {
+		const response = await CommentSchema.create({
+            postId: id,
+            comment,
+            userName,
+        })
+        return res.status(200).json({msg: 'Seu comentario foi publicado...'})
+	} catch (error) {
+        return res.status(500).json({ errors: error, msg: error.message})   
+
+	}
 }

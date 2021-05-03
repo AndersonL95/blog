@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react'
-import {useParams, Link} from 'react-router-dom'
+import {useParams} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
-import {postDetails} from '../store/asyncMethods/PostMethods'
+import {postDetails, postComment} from '../store/asyncMethods/PostMethods'
 import Loader from './Loader'
 import Helmet from 'react-helmet'
 import moment from 'moment'
@@ -15,9 +15,10 @@ const Details = () => {
     const { user } = useSelector((state) => state.AuthReducer)
     const {loading, details} = useSelector((state) => state.PostReducer)
     const dispatch = useDispatch()
-    const addComment = e => {
+    const addComment = (e) => {
         e.preventDefault()
-        console.log(comment)
+        dispatch(postComment({id: details._id, comment, userName: user.nome}))
+        setComment('')
     }
     useEffect(() => {
         dispatch(postDetails(id))
