@@ -187,7 +187,10 @@ module.exports.postDetails = async (req, res) => {
     const id = req.params.id
     try {
         const post = await Post.findOne({slug: id})
-        return res.status(200).json({post})
+        const comments = await CommentSchema.find({postId: post._id}).sort({
+            updateAt: -1,
+        })
+        return res.status(200).json({post, comments})
     } catch (error) {
         return res.status(500).json({ errors: error, msg: error.message})   
 

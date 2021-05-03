@@ -7,18 +7,22 @@ import Helmet from 'react-helmet'
 import moment from 'moment'
 import 'moment/locale/pt-br'
 import {htmlToText} from 'html-to-text'
+import Comments from './Comments'
 
 
 const Details = () => {
     const { id } = useParams();
     const [comment, setComment] = useState('')
     const { user } = useSelector((state) => state.AuthReducer)
-    const {loading, details} = useSelector((state) => state.PostReducer)
+    const {loading, details, comments} = useSelector((state) => state.PostReducer)
     const dispatch = useDispatch()
     const addComment = (e) => {
         e.preventDefault()
         dispatch(postComment({id: details._id, comment, userName: user.nome}))
         setComment('')
+        dispatch(postDetails(id))
+
+        
     }
     useEffect(() => {
         dispatch(postDetails(id))
@@ -51,7 +55,9 @@ const Details = () => {
                                     <img src={`/imagens/${details.image}`} alt={details.image} />
                                 </div>
                             </div>
-                            {user ? <div className='post_comment'>
+                            {user ? (
+                                <>
+                                <div className='post_comment'>
                                 <form onSubmit={addComment}>
                                     <input 
                                         type='text' 
@@ -68,7 +74,12 @@ const Details = () => {
                                         />
                                     </div>
                                 </form>
-                            </div>: ''}
+                            </div>
+                            <Comments comments={comments}/>
+                            </>
+                            ):( 
+                                ''
+                            )}
                         </div>
                     ) : (
                         <Loader />
